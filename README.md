@@ -1,5 +1,9 @@
 # Predixy [中文版](https://github.com/joyieldInc/predixy/blob/master/README_CN.md)
 
+## 更新说明：
+
+- 修改了 k8s pod 漂移，连接报错的问题：ERR no server connection avaliable
+
 **Predixy** is a high performance and fully featured proxy for redis sentinel and redis cluster
 
 ## Features
