@@ -138,7 +138,7 @@ bool Proxy::init(int argc, char* argv[])
 
 int Proxy::run()
 {
-    logNotice("predixy running with Name:%s Workers:%d",
+    logNotice("20240201 debug predixy running with Name:%s Workers:%d",
             mConf->name(),
             (int)mHandlers.size());
     std::vector<std::shared_ptr<std::thread>> tasks;

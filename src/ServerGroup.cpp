@@ -28,12 +28,12 @@ Server* ServerGroup::getMaster() const
     for (int i = 0; i < cnt; ++i) {
         Server* s = mServs[i];
         if (!s->online()) {
-            logNotice("server %s offline", s->addr().data());
+            logError("server %s offline", s->addr().data());
             continue;
         }
         if (s->role() == Server::Master) {
             if (s->fail()){
-                logNotice("server %s is fail", s->addr().data());
+                logError("server %s is fail", s->addr().data());
             } else {
                 return s;
             }
@@ -57,7 +57,7 @@ Server* ServerGroup::getServer(Handler* h, Request* req) const
         for (int i = cnt-1; i >= 0; --i) {
             Server* s = mServs[i];
             if (!s->online()) {
-                logNotice("server %s offline", s->addr().data());
+                logError("server %s offline", s->addr().data());
                 continue;
             }
             if (s->role() == Server::Master) {
@@ -65,7 +65,7 @@ Server* ServerGroup::getServer(Handler* h, Request* req) const
                 if (!s->fail()){
                     break;
                 } else {
-                    logNotice("server %s is fail", s->addr().data());
+                    logError("server %s is fail", s->addr().data());
                 }
             }
         }
@@ -93,7 +93,7 @@ Server* ServerGroup::getReadServer(Handler* h) const
     for (int i = 0; i < cnt; ++i) {
         Server* s = mServs[i];
         if (!s->online()) {
-            logNotice("server %s offline", s->addr().data());
+            logError("server %s offline", s->addr().data());
             continue;
         }
         int rp = 0;
@@ -103,7 +103,7 @@ Server* ServerGroup::getReadServer(Handler* h) const
             rp = s->isStatic() ? mPool->staticSlaveReadPriority() : mPool->dynamicSlaveReadPriority();
         }
         if (rp <= 0) {
-            logNotice("server %s read priority is 0", s->addr().data());
+            logError("server %s read priority is 0", s->addr().data());
             continue;
         }
         if (s->fail()) {
@@ -162,7 +162,7 @@ Server* ServerGroup::getReadServer(Handler* h, DC* localDC) const
     for (int i = 0; i < cnt; ++i) {
         Server* s = mServs[i];
         if (!s->online()) {
-            logNotice("server %s offline", s->addr().data());
+            logError("server %s offline", s->addr().data());
             continue;
         }
         int rp = 0;
@@ -172,7 +172,7 @@ Server* ServerGroup::getReadServer(Handler* h, DC* localDC) const
             rp = s->isStatic() ? mPool->staticSlaveReadPriority() : mPool->dynamicSlaveReadPriority();
         }
         if (rp <= 0) {
-            logNotice("server %s read priority is 0", s->addr().data());
+            logError("server %s read priority is 0", s->addr().data());
             continue;
         }
         DC* dc = s->dc();
